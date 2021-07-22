@@ -1,0 +1,66 @@
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Thoughts{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        {% if current_user.verify == 1 %}
+        <h1 style="text-align:center;">Thoughts</h1>
+        {% if thoughts %}
+          <!-- <hr class="intro-divider"> -->
+          <div class="center">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th width="15%"> Date </th>
+                  <th width="40%"> Thought </th>
+                  <th width="15%"> Shown </th>
+                  <th width="15%"> Edit </th>
+                  <th width="15%"> Delete </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for thought in thoughts %}
+                <tr>
+                  <td> {{ thought.date }} </td>
+                  <td> {{ thought.th }} </td>
+                  <td> {{ thought.is_public }} </td>
+                  <td>
+                    <a href="{{ url_for('admin.edit_thought', id=thought.id) }}">
+                      <i class="fa fa-pen"></i> Edit 
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for('admin.delete_thought', id=thought.id) }}">
+                      <i class="fa fa-trash"></i> Delete 
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> No thoughts have been added. </h3>
+            <!-- <hr class="intro-divider"> -->
+        {% endif %}
+          <a href="{{ url_for('admin.add_thought') }}" class="btn btn-default btn-lg">
+            <i class="fa fa-plus"></i>
+            Add Thought
+          </a>
+        </div>
+        {% else %}
+          <h1 style = "text-align: center;"> Please Verify your email first. <h1>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
