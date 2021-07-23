@@ -44,6 +44,8 @@ def register():
   
         # start TLS for security
         s.starttls()
+        ootp = randint(100010,992999) 
+        cotp=str(ootp)
         
         # Authentication
         s.login("thoughtsandme00@gmail.com", "luckyOne123@")
@@ -58,7 +60,7 @@ def register():
         login_user(employee)
 
         # redirect to the login page
-        return redirect(url_for('auth.verf'))
+        return redirect(url_for('auth.verf' , cotp = cotp))
 
     # load registration template
     return render_template('auth/register.html', form=form, title='Register')
@@ -95,7 +97,7 @@ def verify():
 
             # redirect to the login page
         flash('Otp sent on your registered email id.')
-        return redirect(url_for('auth.verf'))
+        return redirect(url_for('auth.verf' , cotp = cotp))
 
     # load registration template
     return render_template('auth/verify.html', form=form, title='Verify')
@@ -226,8 +228,8 @@ def forgotnew():
 
 
 
-@auth.route('/verf', methods=['GET', 'POST'])
-def verf():
+@auth.route('/verf/<cotp>', methods=['GET', 'POST'])
+def verf(cotp):
     employee = User.query.get_or_404(current_user.id)
     form = Verf(obj=employee)
     if form.validate_on_submit():
@@ -289,7 +291,7 @@ def login():
 
         # check whether employee exists in the database and whether
         # the password entered matches the password in the database
-        employee = User.query.filter_by(email=form.email.data).first()
+        employee = User.query.filter_by(username=form.username.data).first()
         if employee is not None and employee.verify_password(
                 form.password.data):
             # log employee in

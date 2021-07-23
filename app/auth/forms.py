@@ -68,7 +68,7 @@ class LoginForm(FlaskForm):
     """
     Form for users to login
     """
-    email = StringField('Email', validators=[DataRequired(), Email()] , render_kw={'style': 'width: 60ch'})
+    username = StringField('Username', validators=[DataRequired()] , render_kw={'style': 'width: 60ch'})
     password = PasswordField('Password', validators=[DataRequired()] , render_kw={'style': 'width: 60ch'})
     change = SubmitField('Forgot Password')
     submit = SubmitField('Login to your account')
