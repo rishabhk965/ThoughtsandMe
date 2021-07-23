@@ -1,9 +1,13 @@
 <!-- about.html-->
 
+{% import "bootstrap/utils.html" as utils %}
 {% extends "base.html" %}
 {% block title %}About{% endblock %}
 {% block body %}
 <div class="jumbotron">
+  <br/>
+  {{ utils.flashed_messages() }}
+  <br/>
   <h1>About Us</h1>
   <p class="lead">Made with ❤️</p>
   <div class="w3-half w3-center"  style="color:#ffffff;background:#7a7a7a48; border-radius: 25px; display:grid; margin: auto; height: 430px">

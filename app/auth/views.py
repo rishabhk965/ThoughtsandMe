@@ -71,7 +71,8 @@ def verify():
     """
 
     # idd=current_user.id
-    form = verifyy()
+    employee = User.query.filter_by(email = current_user.email).first_or_404()
+    form = verifyy(obj = employee)
     if form.validate_on_submit():
         s = smtplib.SMTP('smtp.gmail.com', 587)
 
@@ -164,7 +165,8 @@ def forgot():
     Handle requests to the /register route
     Add an employee to the database through the registration form
     """
-    form = verifyy()
+    employee = User.query.filter_by(email = current_user.email).first_or_404()
+    form = verifyy(obj = employee)
     if form.validate_on_submit():
         s = smtplib.SMTP('smtp.gmail.com', 587)
 
@@ -244,7 +246,7 @@ def verf():
                 return redirect(url_for('auth.login'))
 
     # load login template
-    return render_template('auth/verf.html', form=form, title='OTP Verification')
+    return render_template('auth/verf.html', form=form, title='Verification')
 
 @auth.route('/edit<int:id>', methods=['GET', 'POST'])
 @login_required
