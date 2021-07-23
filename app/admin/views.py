@@ -18,7 +18,7 @@ def check_thoughts():
     """
     if Thought.query.filter_by(date=date.today()).count() >= 10:
         # return render_template('admin/thoughts/thoughts.html',thoughts=thoughts, title="Thoughts")
-        abort(403, 'Oops!! Looks like you already added enough thoughts today. 🥴 ');
+        return 1
 
 
 # Thought Views
@@ -60,7 +60,9 @@ def add_thought():
     """
     # check_admin()
 
-    check_thoughts()
+    if check_thoughts() == 1:
+        flash('Looks like you already added maximum number of thoughts today.🥴 ');
+        return redirect(url_for("admin.list_thoughts"))
 
     add_thought = True
 
