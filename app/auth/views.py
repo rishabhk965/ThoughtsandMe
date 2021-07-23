@@ -254,7 +254,7 @@ def verf(cotp):
 @login_required
 def edit(id):
     """
-    Handle requests to the /register route
+    Handle requests to the /register routes
     Add an employee to the database through the registration form
     """
     employee = User.query.get_or_404(id)
